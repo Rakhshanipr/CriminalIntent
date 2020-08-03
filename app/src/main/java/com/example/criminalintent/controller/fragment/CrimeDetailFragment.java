@@ -5,8 +5,10 @@ package com.example.criminalintent.controller.fragment;
  * create an instance of this fragment.
  */
 
+import android.content.SearchRecentSuggestionsProvider;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -28,17 +30,25 @@ import static android.content.ContentValues.TAG;
 
 public class CrimeDetailFragment extends Fragment {
     private Crime mCrime;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mCrime = new Crime();
-
-    }
-
     EditText mEditTextCriminalTitle;
     CheckBox mCheckBoxCriminalSolved;
     Button mButtonCriminalDate;
+    public final String FRAGMENT_CRIME_SAVE="mcrime save";
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState==null) {
+            mCrime = new Crime("modur", false);
+        }else{
+            mCrime = (Crime)savedInstanceState.getSerializable(FRAGMENT_CRIME_SAVE);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(FRAGMENT_CRIME_SAVE,mCrime);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
