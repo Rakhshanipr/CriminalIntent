@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CrimeListActivity">
+        <activity android:name=".controller.activity.CrimeListActivity">
 
         </activity>
-        <activity android:name=".CrimeDetailActivity">
+        <activity android:name=".controller.activity.CrimeDetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

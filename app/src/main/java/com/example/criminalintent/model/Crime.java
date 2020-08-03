@@ -42,6 +42,12 @@ public class Crime {
         mDate=new Date();
     }
 
+    public Crime(String title, boolean isSolved) {
+        this();
+        mTitle = title;
+        mIsSolved = isSolved;
+    }
+
     @Override
     public String toString() {
         return "Crime{" +

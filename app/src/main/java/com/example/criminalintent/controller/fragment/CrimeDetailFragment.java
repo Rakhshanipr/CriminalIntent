@@ -1,12 +1,7 @@
-package com.example.criminalintent;
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CrimeDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-
+package com.example.criminalintent.controller.fragment;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -20,18 +15,25 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import com.example.criminalintent.R;
 import com.example.criminalintent.model.Crime;
+
+import java.io.Serializable;
 
 import static android.content.ContentValues.TAG;
 
 
 public class CrimeDetailFragment extends Fragment {
     private Crime mCrime;
+    public static String EDIT_TEXT_SAVE="edit text crime title";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCrime = new Crime();
+        if (savedInstanceState==null)
+        mCrime = new Crime("Murth",true);
+        else
+            mCrime=(Crime) savedInstanceState.getSerializable(EDIT_TEXT_SAVE);
 
     }
 
@@ -45,8 +47,11 @@ public class CrimeDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_crime_detail, container, false);
         findViewsById(view);
+
         initViews();
         setListeners();
+        mEditTextCriminalTitle.setText(mCrime.getTitle());
+        mCheckBoxCriminalSolved.setChecked(mCrime.isSolved());
         return view;
     }
 
@@ -55,7 +60,6 @@ public class CrimeDetailFragment extends Fragment {
         mEditTextCriminalTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -77,6 +81,12 @@ public class CrimeDetailFragment extends Fragment {
                 Log.d(TAG, mCrime.toString());
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(EDIT_TEXT_SAVE, (Serializable) mCrime);
     }
 
     private void initViews() {

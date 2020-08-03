@@ -1,8 +1,10 @@
-package com.example.criminalintent;
+package com.example.criminalintent.controller.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.criminalintent.R;
 
 public class CrimeListActivity extends AppCompatActivity {
 
