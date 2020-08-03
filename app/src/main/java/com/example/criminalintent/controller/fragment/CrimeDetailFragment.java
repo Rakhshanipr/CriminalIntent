@@ -1,4 +1,4 @@
-package com.example.criminalintent.fragment;
+package com.example.criminalintent.controller.fragment;
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CrimeDetailFragment#newInstance} factory method to
