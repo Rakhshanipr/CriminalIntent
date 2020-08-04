@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="8dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textview_row_crime_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="crime title"
+        android:textSize="18dp"></TextView>
+
+    <TextView
+        android:id="@+id/textview_row_crime_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="crime date"
+        android:textSize="18dp"></TextView>
+
+</LinearLayout>
