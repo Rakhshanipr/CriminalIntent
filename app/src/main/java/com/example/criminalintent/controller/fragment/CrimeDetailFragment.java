@@ -1,6 +1,8 @@
 package com.example.criminalintent.controller.fragment;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SearchRecentSuggestionsProvider;
 import android.os.Bundle;
 
@@ -19,7 +21,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.example.criminalintent.R;
+import com.example.criminalintent.controller.activity.CrimeDetailActivity;
 import com.example.criminalintent.model.Crime;
+
+import java.util.UUID;
 
 import static android.content.ContentValues.TAG;
 
@@ -29,21 +34,31 @@ public class CrimeDetailFragment extends Fragment {
     EditText mEditTextCriminalTitle;
     CheckBox mCheckBoxCriminalSolved;
     Button mButtonCriminalDate;
-    public final String FRAGMENT_CRIME_SAVE="mcrime save";
+
+
+    public final String FRAGMENT_CRIME_SAVE = "com.example.criminalintent.model.Crime.mcrime_save";
+    public static final String CRIM_ID = "com.example.criminalintent.model.Crime.crimId";
+
+    public static Intent newIntent(Context source, UUID crimeId) {
+        Intent intent = new Intent(source, CrimeDetailActivity.class);
+        intent.putExtra(CRIM_ID, crimeId);
+        return intent;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState==null) {
+        if (savedInstanceState == null) {
             mCrime = new Crime("modur", false);
-        }else{
-            mCrime = (Crime)savedInstanceState.getSerializable(FRAGMENT_CRIME_SAVE);
+        } else {
+            mCrime = (Crime) savedInstanceState.getSerializable(FRAGMENT_CRIME_SAVE);
         }
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(FRAGMENT_CRIME_SAVE,mCrime);
+        outState.putSerializable(FRAGMENT_CRIME_SAVE, mCrime);
     }
 
     @Override
