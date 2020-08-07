@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="8dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/textview_row_crime_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="crime title"
-        android:textSize="18dp"></TextView>
+        android:layout_alignLeft="@id/imageview_manacle"
+        android:layout_alignParentLeft="true"
+        android:textSize="18dp"
+        tools:text="crime title"></TextView>
+
+    <ImageView
+        android:id="@+id/imageview_manacle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:gravity="left"
+        android:src="@mipmap/manacle_foreground">
+
+    </ImageView>
 
     <TextView
         android:id="@+id/textview_row_crime_date"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="crime date"
-        android:textSize="18dp"></TextView>
+        android:layout_below="@id/textview_row_crime_title"
+        android:layout_alignLeft="@id/imageview_manacle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="false"
+        android:layout_marginTop="8dp"
+        android:textSize="18dp"
+        tools:text="crime date"></TextView>
 
-</LinearLayout>
+</RelativeLayout>

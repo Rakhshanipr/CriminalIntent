@@ -1,9 +1,5 @@
 package com.example.criminalintent.controller.fragment;
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CrimeDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 
 import android.content.SearchRecentSuggestionsProvider;
 import android.os.Bundle;
