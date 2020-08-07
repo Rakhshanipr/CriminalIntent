@@ -1,5 +1,7 @@
 package com.example.criminalintent.repository;
 
+import android.widget.LinearLayout;
+
 import com.example.criminalintent.model.Crime;
 
 import java.util.List;
@@ -10,5 +12,7 @@ public interface RepositoryInterface {
     Crime getCrime(UUID uuid);
     void updateCrime(Crime crime);
     void deleteCrime(Crime crime);
+    void insertCrime(Crime crime);
+    void insertCrimes(List<Crime> crimes);
 
 }

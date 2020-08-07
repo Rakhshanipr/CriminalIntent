@@ -39,6 +39,12 @@ public class CrimeDetailFragment extends Fragment {
     public final String FRAGMENT_CRIME_SAVE = "com.example.criminalintent.model.Crime.mcrime_save";
     public static final String CRIM_ID = "com.example.criminalintent.model.Crime.crimId";
 
+    /**
+     *
+     * @param source source that start detail activity
+     * @param crimeId id of Crime repository
+     * @return
+     */
     public static Intent newIntent(Context source, UUID crimeId) {
         Intent intent = new Intent(source, CrimeDetailActivity.class);
         intent.putExtra(CRIM_ID, crimeId);

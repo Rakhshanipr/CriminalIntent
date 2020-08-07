@@ -61,5 +61,15 @@ public class CrimeRepository implements RepositoryInterface {
             }
         }
     }
+
+    @Override
+    public void insertCrime(Crime crime) {
+        mCrimes.add(crime);
+    }
+
+    @Override
+    public void insertCrimes(List<Crime> crimes) {
+        mCrimes.addAll(crimes);
+    }
 }
 
