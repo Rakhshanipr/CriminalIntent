@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.criminalintent.R;
+import com.example.criminalintent.controller.activity.CrimeDetailActivity;
 import com.example.criminalintent.model.Crime;
 import com.example.criminalintent.repository.CrimeRepository;
 
@@ -26,6 +27,14 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private CrimeRepository mCrimeRepository;
 
+    public static CrimeListFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        CrimeListFragment fragment = new CrimeListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +81,7 @@ public class CrimeListFragment extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = CrimeDetailFragment.newIntent(getContext(), mCrime.getId());
+                    Intent intent = CrimeDetailActivity.newIntent(getContext(), mCrime.getId());
                     startActivity(intent);
                 }
             });

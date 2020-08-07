@@ -1,9 +1,6 @@
 package com.example.criminalintent.controller.fragment;
 
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SearchRecentSuggestionsProvider;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -32,39 +29,30 @@ import static android.content.ContentValues.TAG;
 
 
 public class CrimeDetailFragment extends Fragment {
+    public static final String ARG_CRIME_ID = "com.example.criminalintent.controller.activity.CrimeDetailActivity.CrimId";
     private Crime mCrime;
     EditText mEditTextCriminalTitle;
     CheckBox mCheckBoxCriminalSolved;
     Button mButtonCriminalDate;
     private RepositoryInterface<Crime> mRepository;
 
-
     public final String FRAGMENT_CRIME_SAVE = "com.example.criminalintent.model.Crime.mcrime_save";
-    public static final String CRIM_ID = "com.example.criminalintent.model.Crime.crimId";
 
-    /**
-     *
-     * @param source source that start detail activity
-     * @param crimeId id of Crime repository
-     * @return
-     */
-    public static Intent newIntent(Context source, UUID crimeId) {
-        Intent intent = new Intent(source, CrimeDetailActivity.class);
-        intent.putExtra(CRIM_ID, crimeId);
-        return intent;
+    public static CrimeDetailFragment newInstance(UUID uuid) {
+
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_CRIME_ID,uuid);
+
+        CrimeDetailFragment fragment = new CrimeDetailFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRepository=CrimeRepository.getInstance();
-        UUID crimeId=(UUID)getActivity().getIntent().getSerializableExtra(CRIM_ID);
+        UUID crimeId=(UUID)getArguments().getSerializable(ARG_CRIME_ID);
         mCrime=mRepository.get(crimeId);
-//        if (savedInstanceState == null) {
-//            mCrime = new Crime("modur", false);
-//        } else {
-//            mCrime = (Crime) savedInstanceState.getSerializable(FRAGMENT_CRIME_SAVE);
-//        }
     }
 
     @Override
