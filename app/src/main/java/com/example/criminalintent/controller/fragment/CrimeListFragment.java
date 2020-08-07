@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.criminalintent.R;
 import com.example.criminalintent.model.Crime;
@@ -57,6 +58,7 @@ public class CrimeListFragment extends Fragment {
     bind viewholder
      */
     private class CrimeHolder extends RecyclerView.ViewHolder {
+        private Crime mCrime;
         private TextView mTextViewTitle;
         private TextView mTextViewDate;
         private ImageView mImageView;
@@ -66,9 +68,16 @@ public class CrimeListFragment extends Fragment {
             mTextViewDate = itemView.findViewById(R.id.textview_row_crime_date);
             mTextViewTitle = itemView.findViewById(R.id.textview_row_crime_title);
             mImageView = itemView.findViewById(R.id.imageview_manacle);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getActivity(), mCrime.getTitle()+" is clicked", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         public void bindCrime(Crime crime) {
+            mCrime = crime;
             mTextViewTitle.setText(crime.getTitle());
             mTextViewDate.setText(crime.getDate().toString());
             mImageView.setVisibility(crime.isSolved() ? mImageView.VISIBLE : mImageView.INVISIBLE);
