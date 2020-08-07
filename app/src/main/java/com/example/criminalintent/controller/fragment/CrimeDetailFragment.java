@@ -23,6 +23,8 @@ import android.widget.EditText;
 import com.example.criminalintent.R;
 import com.example.criminalintent.controller.activity.CrimeDetailActivity;
 import com.example.criminalintent.model.Crime;
+import com.example.criminalintent.repository.CrimeRepository;
+import com.example.criminalintent.repository.RepositoryInterface;
 
 import java.util.UUID;
 
@@ -34,6 +36,7 @@ public class CrimeDetailFragment extends Fragment {
     EditText mEditTextCriminalTitle;
     CheckBox mCheckBoxCriminalSolved;
     Button mButtonCriminalDate;
+    private RepositoryInterface<Crime> mRepository;
 
 
     public final String FRAGMENT_CRIME_SAVE = "com.example.criminalintent.model.Crime.mcrime_save";
@@ -54,11 +57,14 @@ public class CrimeDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState == null) {
-            mCrime = new Crime("modur", false);
-        } else {
-            mCrime = (Crime) savedInstanceState.getSerializable(FRAGMENT_CRIME_SAVE);
-        }
+        mRepository=CrimeRepository.getInstance();
+        UUID crimeId=(UUID)getActivity().getIntent().getSerializableExtra(CRIM_ID);
+        mCrime=mRepository.get(crimeId);
+//        if (savedInstanceState == null) {
+//            mCrime = new Crime("modur", false);
+//        } else {
+//            mCrime = (Crime) savedInstanceState.getSerializable(FRAGMENT_CRIME_SAVE);
+//        }
     }
 
     @Override
@@ -109,6 +115,8 @@ public class CrimeDetailFragment extends Fragment {
 
     private void initViews() {
         mButtonCriminalDate.setText(mCrime.getDate().toString());
+        mEditTextCriminalTitle.setText(mCrime.getTitle());
+        mCheckBoxCriminalSolved.setChecked(mCrime.isSolved());
         mButtonCriminalDate.setEnabled(false);
     }
 

@@ -43,7 +43,7 @@ public class CrimeListFragment extends Fragment {
 
     private void initUI() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        CrimeAdapter adapter = new CrimeAdapter(mCrimeRepository.getCrimes());
+        CrimeAdapter adapter = new CrimeAdapter(mCrimeRepository.getLists());
         mRecyclerView.setAdapter(adapter);
     }
 

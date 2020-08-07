@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class CrimeRepository implements RepositoryInterface {
+public class CrimeRepository implements RepositoryInterface<Crime> {
+
 
     public static CrimeRepository sCrimeRepository;
     public static final int NUMBER_OF_CRIMES = 100;
 
     public static CrimeRepository getInstance() {
+
         if (sCrimeRepository == null)
             sCrimeRepository = new CrimeRepository();
         return sCrimeRepository;
@@ -19,7 +21,8 @@ public class CrimeRepository implements RepositoryInterface {
 
     private List<Crime> mCrimes;
 
-    public void setCrimes(List<Crime> crimes) {
+    @Override
+    public void setList(List<Crime> crimes) {
         mCrimes = crimes;
     }
 
@@ -31,7 +34,8 @@ public class CrimeRepository implements RepositoryInterface {
         }
     }
 
-    public Crime getCrime(UUID uuid) {
+    @Override
+    public Crime get(UUID uuid) {
         for (Crime crime :
                 mCrimes) {
             if (crime.getId().equals(uuid))
@@ -40,19 +44,20 @@ public class CrimeRepository implements RepositoryInterface {
         return null;
     }
 
-    public void updateCrime(Crime newCrime) {
-        Crime updateCrime = getCrime(newCrime.getId());
+    @Override
+    public void update(Crime newCrime) {
+        Crime updateCrime = get(newCrime.getId());
         updateCrime.setSolved(newCrime.isSolved());
         updateCrime.setTitle(newCrime.getTitle());
         updateCrime.setDate(newCrime.getDate());
     }
 
     @Override
-    public List<Crime> getCrimes() {
+    public List<Crime> getLists() {
         return mCrimes;
     }
 
-    public void deleteCrime(Crime crime) {
+    public void delete(Crime crime) {
         for (Crime obj :
                 mCrimes) {
             if (obj.getId().equals(crime.getId())) {
@@ -63,12 +68,12 @@ public class CrimeRepository implements RepositoryInterface {
     }
 
     @Override
-    public void insertCrime(Crime crime) {
+    public void insert(Crime crime) {
         mCrimes.add(crime);
     }
 
     @Override
-    public void insertCrimes(List<Crime> crimes) {
+    public void insertList(List<Crime> crimes) {
         mCrimes.addAll(crimes);
     }
 }
