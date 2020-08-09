@@ -18,10 +18,9 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.example.criminalintent.R;
-import com.example.criminalintent.controller.activity.CrimeDetailActivity;
 import com.example.criminalintent.model.Crime;
 import com.example.criminalintent.repository.CrimeRepository;
-import com.example.criminalintent.repository.RepositoryInterface;
+import com.example.criminalintent.repository.IRepository;
 
 import java.util.UUID;
 
@@ -34,7 +33,7 @@ public class CrimeDetailFragment extends Fragment {
     EditText mEditTextCriminalTitle;
     CheckBox mCheckBoxCriminalSolved;
     Button mButtonCriminalDate;
-    private RepositoryInterface<Crime> mRepository;
+    private IRepository<Crime> mRepository;
 
     public final String FRAGMENT_CRIME_SAVE = "com.example.criminalintent.model.Crime.mcrime_save";
 
@@ -50,7 +49,7 @@ public class CrimeDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRepository=CrimeRepository.getInstance();
+        mRepository= CrimeRepository.getInstance();
         UUID crimeId=(UUID)getArguments().getSerializable(ARG_CRIME_ID);
         mCrime=mRepository.get(crimeId);
     }
@@ -99,6 +98,16 @@ public class CrimeDetailFragment extends Fragment {
                 Log.d(TAG, mCrime.toString());
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        updateCrime();
+    }
+
+    private void updateCrime(){
+        mRepository.update(mCrime);
     }
 
     private void initViews() {

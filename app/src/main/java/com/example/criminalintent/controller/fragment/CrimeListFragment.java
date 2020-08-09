@@ -14,10 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.criminalintent.R;
 import com.example.criminalintent.controller.activity.CrimeDetailActivity;
+import com.example.criminalintent.controller.activity.CrimePagerActivity;
 import com.example.criminalintent.model.Crime;
 import com.example.criminalintent.repository.CrimeRepository;
 
@@ -26,15 +26,18 @@ import java.util.List;
 public class CrimeListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private CrimeRepository mCrimeRepository;
+    private CrimeAdapter mAdapter;
 
     public static CrimeListFragment newInstance() {
 
         Bundle args = new Bundle();
 
         CrimeListFragment fragment = new CrimeListFragment();
+
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,14 +49,25 @@ public class CrimeListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
         mCrimeRepository = CrimeRepository.getInstance();
         findAllViewsById(view);
-        initUI();
+        updateUI();
         return view;
     }
 
-    private void initUI() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        CrimeAdapter adapter = new CrimeAdapter(mCrimeRepository.getLists());
-        mRecyclerView.setAdapter(adapter);
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    private void updateUI() {
+        if (mAdapter == null) {
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+            mAdapter = new CrimeAdapter(mCrimeRepository.getLists());
+            mRecyclerView.setAdapter(mAdapter);
+        }else{
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     private void findAllViewsById(View view) {
@@ -81,7 +95,7 @@ public class CrimeListFragment extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = CrimeDetailActivity.newIntent(getContext(), mCrime.getId());
+                    Intent intent = CrimePagerActivity.newIntent(getContext(),mCrime.getId());
                     startActivity(intent);
                 }
             });
