@@ -24,12 +24,12 @@ public class CrimePagerActivity extends AppCompatActivity {
     private static final String EXTRA_CRIME_ID ="com.example.criminalintent.controller.activity.cirmId" ;
     IRepository mRepositoryCrime;
     ViewPager2 mViewPager;
+    int mPosition;
 
 
     public static Intent newIntent(Context source,UUID crimeId) {
-        Intent intent = new Intent(source, CrimeDetailActivity.class);
+        Intent intent = new Intent(source, CrimePagerActivity.class);
         intent.putExtra(EXTRA_CRIME_ID, crimeId);
-
         return intent;
     }
 
@@ -37,16 +37,19 @@ public class CrimePagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crime_pager);
-        setInitialValue();
         findViews();
+        setInitialValue();
+
 
     }
 
     private void setInitialValue() {
         mRepositoryCrime = CrimeRepository.getInstance();
+        UUID uuid=(UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        mPosition=mRepositoryCrime.getPositionByUUID(uuid);
         FragmentStateAdapter fragmentStateAdapter=new MyAdapter(this,mRepositoryCrime.getLists());
         mViewPager.setAdapter(fragmentStateAdapter);
-        mViewPager.setCurrentItem(6);
+        mViewPager.setCurrentItem(mPosition);
     }
 
     private void findViews() {
@@ -56,8 +59,8 @@ public class CrimePagerActivity extends AppCompatActivity {
     private class MyAdapter extends FragmentStateAdapter {
         List<Crime> mCrimeList;
 
-        public MyAdapter(@NonNull FragmentActivity fragment, List<Crime> crimes) {
-            super(fragment);
+        public MyAdapter(@NonNull FragmentActivity fragmentActivity, List<Crime> crimes) {
+            super(fragmentActivity);
             mCrimeList = crimes;
         }
 

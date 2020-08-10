@@ -31,6 +31,16 @@ public class CrimeRepository implements IRepository<Crime> {
         return mCrimes.get(position).getId();
     }
 
+    @Override
+    public int getPositionByUUID(UUID uuid) {
+        for (int i=0;i<mCrimes.size();i++){
+            if (mCrimes.get(i).getId().equals(uuid)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     private CrimeRepository() {
         mCrimes = new ArrayList<>();
         for (int i = 0; i <= NUMBER_OF_CRIMES; i++) {

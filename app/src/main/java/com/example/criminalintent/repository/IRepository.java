@@ -16,5 +16,6 @@ public interface IRepository<E> {
     void insertList(List<E> list);
     void setList(List<E> list);
     UUID getUUIDByPosition(int position);
+    int getPositionByUUID(UUID uuid);
 
 }
