@@ -98,6 +98,14 @@ public class CrimeDetailFragment extends Fragment {
                 Log.d(TAG, mCrime.toString());
             }
         });
+
+        mButtonCriminalDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickFragment dialogDatePickFragment=new DatePickFragment();
+                dialogDatePickFragment.show(getFragmentManager(),"heeeey");
+            }
+        });
     }
 
     @Override
@@ -114,7 +122,7 @@ public class CrimeDetailFragment extends Fragment {
         mButtonCriminalDate.setText(mCrime.getDate().toString());
         mEditTextCriminalTitle.setText(mCrime.getTitle());
         mCheckBoxCriminalSolved.setChecked(mCrime.isSolved());
-        mButtonCriminalDate.setEnabled(false);
+//        mButtonCriminalDate.setEnabled(false);
     }
 
     private void findViewsById(View view) {
